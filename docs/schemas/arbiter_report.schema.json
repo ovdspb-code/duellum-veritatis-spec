@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/arbiter_report.schema.json",
+  "title": "Duellum Veritatis structured arbiter report",
+  "description": "The arbiter's verdict in structured form. Separates what the result supports from what it does not, fixes the permitted and forbidden public wording, and records evidence quality and protocol conduct — so the digest cannot silently overclaim past the arbiter's findings.",
+  "type": "object",
+  "required": [
+    "report_id",
+    "outcome_classification",
+    "evidence_quality",
+    "protocol_conduct",
+    "what_it_supports",
+    "what_it_does_not_support",
+    "permitted_wording",
+    "forbidden_wording",
+    "confidence_and_limitations"
+  ],
+  "properties": {
+    "report_id": { "type": "string" },
+    "outcome_classification": {
+      "enum": ["PRO", "CON", "DRAW_UNRESOLVED", "INVALID_PROTOCOL"]
+    },
+    "accepted_facts": { "type": "array", "items": { "type": "string" } },
+    "rejected_or_quarantined_evidence": { "type": "array", "items": { "type": "string" } },
+    "argument_quality": { "type": "string" },
+    "protocol_conduct": { "type": "string" },
+    "evidence_quality": { "type": "string" },
+    "what_it_supports": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["statement", "claim_id"],
+        "properties": {
+          "statement": { "type": "string" },
+          "claim_id": {
+            "type": "string",
+            "$comment": "Anti-overclaim lock: must reference a claim_id present in the claim_evidence_matrix so the arbiter's finding is anchored to a ledgered row carrying its own diagnosticity and claim_status; it cannot float free of the evidence ledger."
+          },
+          "evidence_id": {
+            "type": ["string", "null"],
+            "$comment": "Optional; when present must reference an evidence_id in the matrix."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "what_it_does_not_support": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["statement", "claim_id"],
+        "properties": {
+          "statement": { "type": "string" },
+          "claim_id": {
+            "type": "string",
+            "$comment": "Must reference a claim_id present in the claim_evidence_matrix, anchoring the non-support to a ledgered row."
+          },
+          "evidence_id": {
+            "type": ["string", "null"],
+            "$comment": "Optional; when present must reference an evidence_id in the matrix."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "what_remains_open": { "type": "array", "items": { "type": "string" } },
+    "permitted_wording": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "forbidden_wording": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "confidence_and_limitations": { "type": "string" }
+  },
+  "additionalProperties": false
+}

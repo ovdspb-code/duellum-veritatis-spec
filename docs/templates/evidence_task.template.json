@@ -1,0 +1,44 @@
+{
+  "task_id": "<duel-slug>-evidence-task-1",
+  "frozen_claim": "<exact claim the decisive test will adjudicate>",
+  "frozen_at": "2026-01-01T00:00:00Z",
+  "registered_before_compute": true,
+  "decisive": true,
+  "observable": {
+    "name": "OS_T",
+    "definition": "OS(S1,S2)=Tr(S1 S2)/sqrt(Tr(S1^2) Tr(S2^2)) on finite-time covariance matrices",
+    "paper_faithful": true,
+    "evidence_basis": "simulation",
+    "source_ref": "arXiv:XXXX.XXXXX Eq. 17/20"
+  },
+  "model": "<generative/data model + parameters under test>",
+  "comparators": [
+    { "name": "structured connectivity", "role": "structured" },
+    { "name": "covariance-matched random", "role": "matched_random" }
+  ],
+  "thresholds": {
+    "margin": 0.55,
+    "rationale": "<why this threshold, declared before compute>"
+  },
+  "metrics": [
+    { "name": "AUC", "variants": ["raw", "folded"] },
+    { "name": "signed_triple", "variants": ["signed"] }
+  ],
+  "seeds": { "count": 10, "level": "experiment", "streams": null },
+  "nulls": ["permutation null", "covariance-matched random"],
+  "failure_modes": [
+    "metric indistinguishable between structured and matched-random after corrections",
+    "result not stable across declared seeds"
+  ],
+  "accepted_evidence_criteria": "<what makes a result admissible as decisive>",
+  "rejected_evidence_criteria": "<what disqualifies a result>",
+  "sensitivity_grid": {
+    "C": [8, 12, 24],
+    "d": [3, 5, 10],
+    "T": "<wider grid>",
+    "behavior_covariance": ["isotropic", "low_rank", "correlated"],
+    "structured": ["chiral_helix", "ring", "paper_like_random_recurrent"],
+    "matched_random": ["permutation", "isotropic", "covariance_matched"],
+    "seeds": 10
+  }
+}

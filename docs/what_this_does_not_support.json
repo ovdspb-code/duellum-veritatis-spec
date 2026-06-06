@@ -1,0 +1,48 @@
+{
+  "$comment": "Canonical machine-readable statement of the explicit non-claims of the Duellum Veritatis series. Single source of truth for the public disclaimer rendered on occam.world / Zenodo and pinned by the gate test suite. Each item is language-keyed (en/ru). Add items append-only; do not silently remove.",
+  "series": "Duellum Veritatis",
+  "schema_version": "1.0",
+  "status": "public_adversarial_ai_stress_test",
+  "does_not_support": [
+    {
+      "id": "not_peer_review",
+      "en": "A release is not peer review and not a peer-reviewed publication. Passing the publication gate is automated structural and integrity enforcement, not human methodological or scientific review.",
+      "ru": "Релиз — это не рецензирование и не рецензируемая публикация. Прохождение публикационного гейта — это автоматическая проверка структуры и целостности, а не человеческая методологическая или научная экспертиза."
+    },
+    {
+      "id": "not_proof",
+      "en": "A duel does not prove or disprove the claim. It is an adversarial stress-test of how well each side can argue a position, not a demonstration that the claim is true or false.",
+      "ru": "Дуэль не доказывает и не опровергает тезис. Это состязательный стресс-тест того, насколько хорошо каждая сторона способна отстоять позицию, а не подтверждение истинности или ложности тезиса."
+    },
+    {
+      "id": "outcome_is_not_truth",
+      "en": "The formal outcome (who argued better) is a distinct axis from the substantive merits-call (whether the claim is true). A side winning the argument must never be read as the claim being confirmed.",
+      "ru": "Формальный исход (кто аргументировал лучше) — это отдельная ось от сущностного вердикта (истинен ли тезис). Победа стороны в споре никогда не должна читаться как подтверждение тезиса."
+    },
+    {
+      "id": "not_endorsement",
+      "en": "Publication is not an endorsement by Occam Research of any position, model, or conclusion expressed in the duel.",
+      "ru": "Публикация не является одобрением Occam Research какой-либо позиции, модели или вывода, прозвучавших в дуэли."
+    },
+    {
+      "id": "model_identity_withheld",
+      "en": "The model identities behind the public sides (Athos / Aramis) and the arbiter are withheld; the artifact asserts nothing about which model produced which argument.",
+      "ru": "Идентичности моделей за публичными сторонами (Атос / Арамис) и за арбитром не раскрываются; артефакт ничего не утверждает о том, какая модель произвела какой аргумент."
+    },
+    {
+      "id": "not_byte_reproducible",
+      "en": "Where a release carries compute, reproducibility is verified within declared numeric tolerances, not by byte-identical output hashes, which are environment-fragile and not a soundness criterion.",
+      "ru": "Если релиз содержит вычисления, воспроизводимость проверяется в пределах заявленных числовых допусков, а не по байтово-идентичным хешам результатов — хеши хрупки к окружению и не являются критерием корректности."
+    },
+    {
+      "id": "scout_not_scientific_result",
+      "en": "A release declared scout / protocol_pilot / methodological_case_study is a demonstration of method on a toy or proxy observable; it does not assert a paper-level scientific finding.",
+      "ru": "Релиз, заявленный как scout / protocol_pilot / methodological_case_study, — это демонстрация метода на игрушечной или прокси-величине; он не утверждает научный результат уровня статьи."
+    },
+    {
+      "id": "third_party_text_untrusted",
+      "en": "When a duel is built over someone else's text, that text is handled as untrusted data; the artifact does not reproduce any hidden-instruction content and makes no claim to faithfully represent the source author's intent.",
+      "ru": "Когда дуэль построена на чужом тексте, этот текст обрабатывается как недоверенные данные; артефакт не воспроизводит скрытые инструкции и не претендует на достоверную передачу намерения автора источника."
+    }
+  ]
+}

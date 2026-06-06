@@ -1,0 +1,33 @@
+{
+  "report_id": "<duel-slug>-arbiter-report-1",
+  "outcome_classification": "CON",
+  "accepted_facts": [
+    "<fact the arbiter treats as established>"
+  ],
+  "rejected_or_quarantined_evidence": [
+    "<evidence the arbiter declined to admit and why>"
+  ],
+  "argument_quality": "<assessment of each side's argumentation>",
+  "protocol_conduct": "<were the duel rules followed; any violations>",
+  "evidence_quality": "<strength/limits of the admitted evidence>",
+  "what_it_supports": [
+    "<the narrow claim the result actually backs>"
+  ],
+  "what_it_does_not_support": [
+    "that the seed paper is wrong",
+    "that the observable fails in the paper's full model",
+    "that all fixed-order statistics fail generally"
+  ],
+  "what_remains_open": [
+    "<questions the run did not settle>"
+  ],
+  "permitted_wording": [
+    "In this toy model and metric choices, the tested third-order statistic did not survive after second-order collapse."
+  ],
+  "forbidden_wording": [
+    "Every fixed-order statistic dies.",
+    "The result settles the logic cleanly.",
+    "Orientation similarity fails generally."
+  ],
+  "confidence_and_limitations": "<confidence level and the limits that bound it>"
+}

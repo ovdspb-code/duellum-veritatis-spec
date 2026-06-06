@@ -1,0 +1,13 @@
+{
+  "duel_id": "dv-0001",
+  "generated_at": "2026-06-04T00:00:00Z",
+  "package_status": "draft",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "public": true,
+      "role": "digest_html"
+    }
+  ]
+}

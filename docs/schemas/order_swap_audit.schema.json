@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/order_swap_audit.schema.json",
+  "title": "Duellum Veritatis order-swap audit artifact",
+  "description": "ADR-0001 D1b evidence: the natural and swapped arbiter runs with input/output hashes, so the order-swap stability claim is independently auditable rather than a bare summary in the sidecar.",
+  "type": "object",
+  "required": [
+    "checked_at",
+    "natural_input_sha256",
+    "natural_output_sha256",
+    "swapped_input_sha256",
+    "swapped_output_sha256",
+    "natural_substantive",
+    "swapped_substantive",
+    "stability"
+  ],
+  "properties": {
+    "checked_at": { "type": "string", "format": "date-time" },
+    "natural_input_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "natural_output_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "swapped_input_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "swapped_output_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "natural_outcome": { "enum": ["PRO", "CON", "DRAW_UNRESOLVED", "INVALID_PROTOCOL"] },
+    "swapped_outcome": { "enum": ["PRO", "CON", "DRAW_UNRESOLVED", "INVALID_PROTOCOL"] },
+    "natural_substantive": { "enum": ["pro", "con", "unclear", "not_applicable"] },
+    "swapped_substantive": { "enum": ["pro", "con", "unclear", "not_applicable"] },
+    "stability": {
+      "enum": ["PASS", "UNSTABLE"],
+      "$comment": "PASS only when natural and swapped substantive calls agree."
+    },
+    "differences_summary": { "type": "string" }
+  },
+  "additionalProperties": false
+}

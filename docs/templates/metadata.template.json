@@ -1,0 +1,47 @@
+{
+  "duel_id": "dv-0001",
+  "series": "Duellum Veritatis",
+  "status": "public_adversarial_ai_stress_test",
+  "claim": {
+    "text": "<exact frozen claim>",
+    "frozen_at": "2026-06-04T00:00:00Z",
+    "claim_type": "numeric"
+  },
+  "sides": {
+    "public_names": [
+      "Athos",
+      "Aramis"
+    ],
+    "side_assignment_seed_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "model_id_public": "withheld"
+  },
+  "arbiter": {
+    "identity_public": "independent_ai_arbiter",
+    "outside_duel_roster": true,
+    "blind_to_model_identity": true,
+    "order_swap_audit": {
+      "status": "NOT_RUN",
+      "waiver_reason": "retrospective_release_before_D1b"
+    },
+    "verbosity_confound_warning": false
+  },
+  "outcome": {
+    "enum": "DRAW_UNRESOLVED",
+    "basis": "real_compute",
+    "confidence": null,
+    "arbitration_status": "NOT_RUN",
+    "protocol_status": "PARTIAL"
+  },
+  "reproducibility": {
+    "bundle_included": true,
+    "compute_manifest": "repro/compute_manifest.json",
+    "rerun_status": "not_rerun"
+  },
+  "publication_gate": {
+    "status": "PASSED",
+    "approved_sidecar_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "prior_work_check": "limited",
+    "third_party_text_handling": "not_applicable",
+    "errata": []
+  }
+}

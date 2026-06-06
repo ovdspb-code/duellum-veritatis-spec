@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/calibration_log_entry.schema.json",
+  "title": "Duellum Veritatis calibration log entry",
+  "type": "object",
+  "required": [
+    "duel_id",
+    "arbiter_confidence",
+    "outcome",
+    "calibration_target_status",
+    "resolution_source",
+    "brier_component"
+  ],
+  "properties": {
+    "duel_id": {
+      "type": "string"
+    },
+    "arbiter_confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "outcome": {
+      "enum": [
+        "PRO",
+        "CON",
+        "DRAW_UNRESOLVED",
+        "INVALID_PROTOCOL"
+      ]
+    },
+    "calibration_target_status": {
+      "enum": [
+        "pending",
+        "resolved",
+        "not_applicable"
+      ]
+    },
+    "resolution_source": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "external_replication",
+        "erratum",
+        "OD_accepted_correction",
+        "later_duel_resolution",
+        "independent_human_review"
+      ]
+    },
+    "brier_component": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+{
+  "compute_kind": "real_compute",
+  "script": "repro/YYYY-MM-DD_repro.py",
+  "script_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "inputs": [
+    {
+      "path": "repro/YYYY-MM-DD_cc_data.json",
+      "sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "environment": {
+    "python": "3.x",
+    "packages": "requirements.txt or lockfile",
+    "platform": "<platform>"
+  },
+  "random_seed": 12345,
+  "outputs": [
+    {
+      "path": "repro/main_result.json",
+      "sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "metric": "<metric>",
+      "value": "<value>",
+      "tolerance": "absolute 1e-9 or stated"
+    }
+  ],
+  "rerun_instruction": "python repro/YYYY-MM-DD_repro.py",
+  "known_limitations": "<limitations>"
+}

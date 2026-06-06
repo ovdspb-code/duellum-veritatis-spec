@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/od_waiver.schema.json",
+  "title": "Duellum Veritatis OD waiver (immutable artifact)",
+  "type": "object",
+  "required": [
+    "schema",
+    "waiver_id",
+    "applies_to",
+    "scope",
+    "approved_by",
+    "approved_at",
+    "issued_at",
+    "revoked",
+    "body_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "duellum.od_waiver.v1"
+    },
+    "waiver_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applies_to": {
+      "type": "object",
+      "required": [
+        "release_slug"
+      ],
+      "properties": {
+        "release_slug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "release_no": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "check",
+        "waives",
+        "validity",
+        "attestation"
+      ],
+      "properties": {
+        "check": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "waives": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validity": {
+          "enum": [
+            "single_release"
+          ]
+        },
+        "attestation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "approved_by": {
+      "const": "OD"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revoked": {
+      "type": "boolean"
+    },
+    "revocation": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "approved_by",
+        "revoked_at",
+        "reason"
+      ],
+      "properties": {
+        "approved_by": {
+          "const": "OD"
+        },
+        "revoked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "body_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,346 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/metadata.schema.json",
+  "title": "Duellum Veritatis public duel metadata",
+  "type": "object",
+  "required": [
+    "duel_id",
+    "series",
+    "status",
+    "claim",
+    "sides",
+    "arbiter",
+    "outcome",
+    "reproducibility",
+    "publication_gate"
+  ],
+  "allOf": [
+    {
+      "$comment": "Retrospective carve-out (variant B): a null side_assignment_seed_hash is allowed only when the order-swap audit is waived for a retrospective release predating D1b.",
+      "if": {
+        "properties": {
+          "sides": {
+            "required": ["side_assignment_seed_hash"],
+            "properties": {
+              "side_assignment_seed_hash": { "type": "null" }
+            }
+          }
+        },
+        "required": ["sides"]
+      },
+      "then": {
+        "properties": {
+          "arbiter": {
+            "properties": {
+              "order_swap_audit": {
+                "required": ["waiver_reason"],
+                "properties": {
+                  "waiver_reason": { "const": "retrospective_release_before_D1b" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "duel_id": {
+      "type": "string",
+      "pattern": "^dv-[0-9]{4,}$"
+    },
+    "series": {
+      "const": "Duellum Veritatis"
+    },
+    "status": {
+      "const": "public_adversarial_ai_stress_test"
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "text",
+        "frozen_at",
+        "claim_type"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "claim_type": {
+          "enum": [
+            "numeric",
+            "conceptual",
+            "literature_only",
+            "mixed"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "sides": {
+      "type": "object",
+      "required": [
+        "public_names",
+        "side_assignment_seed_hash",
+        "model_id_public"
+      ],
+      "properties": {
+        "public_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "side_assignment_seed_hash": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_id_public": {
+          "const": "withheld"
+        },
+        "athos_side": {
+          "$comment": "D3 engine-track: which side the Athos engine argued (role, not model identity). Optional; null when not recorded.",
+          "oneOf": [
+            { "enum": ["PRO", "CON"] },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "arbiter": {
+      "type": "object",
+      "required": [
+        "identity_public",
+        "outside_duel_roster",
+        "blind_to_model_identity",
+        "order_swap_audit",
+        "verbosity_confound_warning"
+      ],
+      "properties": {
+        "identity_public": {
+          "const": "independent_ai_arbiter"
+        },
+        "outside_duel_roster": {
+          "const": true
+        },
+        "blind_to_model_identity": {
+          "const": true
+        },
+        "order_swap_audit": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "PASS",
+                "UNSTABLE",
+                "NOT_RUN",
+                "WAIVED"
+              ]
+            },
+            "waiver_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "verbosity_confound_warning": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "enum",
+        "basis",
+        "confidence",
+        "arbitration_status",
+        "protocol_status"
+      ],
+      "properties": {
+        "enum": {
+          "enum": [
+            "PRO",
+            "CON",
+            "DRAW_UNRESOLVED",
+            "INVALID_PROTOCOL"
+          ]
+        },
+        "substantive_verdict": {
+          "$comment": "D9: the merits-call on the claim (was it true), distinct from the formal duel outcome (who argued better). What the calibration log scores. Optional; null when not recorded.",
+          "oneOf": [
+            { "enum": ["pro", "con", "unclear", "not_applicable"] },
+            { "type": "null" }
+          ]
+        },
+        "basis": {
+          "enum": [
+            "real_compute",
+            "literature_review",
+            "conceptual_analysis",
+            "mixed",
+            "protocol_failure"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "arbitration_status": {
+          "enum": [
+            "STABLE",
+            "ARBITRATION_UNSTABLE",
+            "NOT_RUN",
+            "WAIVED"
+          ]
+        },
+        "protocol_status": {
+          "enum": [
+            "PASS",
+            "PARTIAL",
+            "FAIL"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "reproducibility": {
+      "type": "object",
+      "required": [
+        "bundle_included",
+        "rerun_status"
+      ],
+      "properties": {
+        "bundle_included": {
+          "type": "boolean"
+        },
+        "compute_manifest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rerun_status": {
+          "enum": [
+            "not_rerun",
+            "rerun_pass",
+            "rerun_fail",
+            "not_applicable"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "publication_gate": {
+      "type": "object",
+      "required": [
+        "status",
+        "approved_sidecar_hash",
+        "prior_work_check",
+        "third_party_text_handling",
+        "errata"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASSED",
+            "BLOCKED",
+            "WAIVED"
+          ]
+        },
+        "approved_sidecar_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(sha256:[0-9a-f]{64})$"
+        },
+        "prior_work_check": {
+          "enum": [
+            "pass",
+            "limited",
+            "fail",
+            "not_applicable"
+          ]
+        },
+        "third_party_text_handling": {
+          "enum": [
+            "pass",
+            "not_applicable",
+            "quarantined",
+            "contamination_note"
+          ]
+        },
+        "errata": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "d8_handling": {
+      "$comment": "D8: present only for a duel over a third-party target. States the target text was handled as untrusted data WITHOUT reproducing hidden-instruction text. Lenient object; built by metadata.build_metadata().",
+      "type": "object"
+    },
+    "references": {
+      "$comment": "FORMAT §17 bibliography: the publication(s) a duel was built on or inspired by. Present whenever the sidecar declares references.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "properties": {
+          "ref": { "type": "string", "minLength": 1, "$comment": "Strictly canonical APA 7 citation; no annotation mixed in." },
+          "url": { "type": ["string", "null"] },
+          "role": { "enum": ["seed", "supporting"] },
+          "note": { "type": "string", "$comment": "Why the source is relevant / how the duel uses it. Kept out of the canonical ref string." }
+        },
+        "additionalProperties": false
+      }
+    },
+    "seed_publication": {
+      "$comment": "True when the duel was seeded by a concrete publication; pairs with a mandatory references array.",
+      "type": "boolean"
+    },
+    "not_applicable_reasons": {
+      "$comment": "Typed reasons (forward-only from 2026-06-07) for each field set to not_applicable, drawn from a controlled per-field vocabulary so an auditor can tell genuinely-inapplicable from skipped.",
+      "type": "object",
+      "properties": {
+        "third_party_text_handling": { "enum": ["no_external_text_ingested", "original_conceptual_duel"] },
+        "prior_work_check": { "enum": ["no_novelty_claim", "scout_pilot"] },
+        "rerun_status": { "enum": ["non_compute_release"] },
+        "substantive_verdict": { "enum": ["draw_no_merits_call", "invalid_protocol"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

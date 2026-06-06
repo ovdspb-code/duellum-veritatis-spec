@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/compute_manifest.schema.json",
+  "title": "Duellum Veritatis compute manifest",
+  "type": "object",
+  "required": [
+    "compute_kind",
+    "script",
+    "script_sha256",
+    "inputs",
+    "environment",
+    "random_seed",
+    "outputs",
+    "rerun_instruction",
+    "known_limitations"
+  ],
+  "properties": {
+    "compute_kind": {
+      "enum": [
+        "real_compute",
+        "proxy_diagnostic",
+        "literature_only",
+        "not_applicable"
+      ]
+    },
+    "script": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "script_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(sha256:[0-9a-f]{64})$"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "python",
+        "packages",
+        "platform"
+      ],
+      "properties": {
+        "python": {
+          "type": "string"
+        },
+        "packages": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "random_seed": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256",
+          "metric",
+          "value",
+          "tolerance"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "value": {
+            "type": [
+              "number",
+              "string",
+              "boolean",
+              "null"
+            ]
+          },
+          "tolerance": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rerun_instruction": {
+      "type": "string"
+    },
+    "known_limitations": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "$comment": "When compute started. Optional; when present the gate requires evidence_task.registered_at <= started_at, giving a real pre-registration ordering check."
+    }
+  },
+  "additionalProperties": false
+}

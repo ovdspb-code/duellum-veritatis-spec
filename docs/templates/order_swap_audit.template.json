@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-01-01T00:00:00Z",
+  "natural_input_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "natural_output_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "swapped_input_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "swapped_output_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "natural_outcome": "CON",
+  "swapped_outcome": "CON",
+  "natural_substantive": "con",
+  "swapped_substantive": "con",
+  "stability": "PASS",
+  "differences_summary": "<what differed between the two runs, if anything>"
+}

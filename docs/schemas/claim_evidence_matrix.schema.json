@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://occam.world/schemas/duellum/claim_evidence_matrix.schema.json",
+  "title": "Duellum Veritatis claim/evidence matrix",
+  "description": "Maps each (sub)claim to the evidence that bears on it, the evidence's diagnosticity and direction, the claim's scope, and the admission ladder (accepted / rejected / quarantined). Forces the reader to see which sub-claim was killed, which survived, and which is only speculation.",
+  "type": "object",
+  "required": ["matrix_id", "claim_frozen_at", "rows"],
+  "properties": {
+    "matrix_id": { "type": "string" },
+    "claim_frozen_at": { "type": "string", "format": "date-time" },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "evidence_id", "claim", "evidence", "diagnosticity", "direction", "scope", "evidence_status", "claim_status"],
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "$comment": "Stable id for this (sub)claim, unique within the matrix. The arbiter_report references these ids so its supports/does-not-support cannot float free of the evidence ledger."
+          },
+          "evidence_id": {
+            "type": "string",
+            "$comment": "Stable id for this row's evidence, unique within the matrix."
+          },
+          "claim": { "type": "string" },
+          "evidence": {
+            "type": "string",
+            "$comment": "Pointer or description; 'not tested' is a legitimate value."
+          },
+          "diagnosticity": { "enum": ["high", "medium", "low", "none"] },
+          "direction": { "enum": ["supports", "contradicts", "neutral", "untested"] },
+          "scope": {
+            "type": "string",
+            "$comment": "The exact regime/model the row is valid within (e.g. 'toy chiral-helix vs isotropic random only')."
+          },
+          "evidence_status": {
+            "enum": ["accepted", "rejected", "quarantined", "not_applicable"],
+            "$comment": "Admission ladder: was this evidence admitted, rejected, or quarantined."
+          },
+          "claim_status": {
+            "enum": ["supported", "contradicted", "unsupported", "speculative"],
+            "$comment": "Disposition of the claim given admitted evidence. 'unsupported' = claim made but not backed (overclaim risk)."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

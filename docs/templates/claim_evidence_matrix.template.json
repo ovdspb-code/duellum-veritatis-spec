@@ -1,0 +1,33 @@
+{
+  "matrix_id": "<duel-slug>-claim-evidence-1",
+  "claim_frozen_at": "2026-01-01T00:00:00Z",
+  "rows": [
+    {
+      "claim": "OS is a second-order covariance/ellipsoid statistic",
+      "evidence": "Seed paper Eq. 17/20",
+      "diagnosticity": "high",
+      "direction": "supports",
+      "scope": "definition-level",
+      "evidence_status": "accepted",
+      "claim_status": "supported"
+    },
+    {
+      "claim": "Third-order signed statistic survives when second-order dies",
+      "evidence": "<repro script> toy simulation",
+      "diagnosticity": "medium",
+      "direction": "contradicts",
+      "scope": "chiral-helix vs isotropic random toy model only",
+      "evidence_status": "accepted",
+      "claim_status": "contradicted"
+    },
+    {
+      "claim": "Every fixed-order statistic dies under dominant behavioral variability",
+      "evidence": "not directly tested",
+      "diagnosticity": "none",
+      "direction": "untested",
+      "scope": "would require theorem or broad sweep",
+      "evidence_status": "not_applicable",
+      "claim_status": "unsupported"
+    }
+  ]
+}
